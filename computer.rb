@@ -3,11 +3,17 @@
 # Computer class that manages creating a code and verifying guesses from the player
 class Computer
   attr_reader :computer_code
+  attr_accessor :points
+
+  def initialize
+    @points = 0
+  end
   # Define a function generate_code that makes a 4 digit code such as 1111, 1112, 1122, etc
 
   def make_code
     @computer_code = []
     4.times { @computer_code.push(rand(1..6)) }
+    p @computer_code
     @computer_code
   end
 
@@ -18,6 +24,8 @@ class Computer
     computer_feedback[:imperfect] = check_imperfects(code, guess)
     computer_feedback
   end
+
+  private
 
   def check_perfects(guess, code)
     perfects = 0
