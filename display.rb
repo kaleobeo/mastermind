@@ -44,6 +44,14 @@ module Display
     gets.chomp
   end
 
+  def round_number(num)
+    puts "Round #{num}, GO!"
+  end
+
+  def reveal_code(code)
+    puts "Looks like the robots won... The code was: #{code.join}"
+  end
+
   def input_warning
     puts 'Sorry, that is not a valid number'
   end

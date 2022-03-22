@@ -11,6 +11,19 @@ class Game
     play_game
   end
 
+  def play_game
+    choose_roles
+    @round = 0
+    @codemaker.make_code
+    @game_over = false
+    play_round until @game_over || @round == 8
+    @round == 8 ? display_win(@codemaker) : display_win(@codebreaker)
+    reveal_code(@codemaker.computer_code) if @round == 8 && @codebreaker.instance_of?(Player)
+    play_again
+  end
+
+  private
+
   def choose_roles
     input = display_choose_roles
     unless %w[1 2].include?(input)
@@ -26,18 +39,9 @@ class Game
     end
   end
 
-  def play_game
-    choose_roles
-    @round = 0
-    @codemaker.make_code
-    @game_over = false
-    play_round until @game_over || @round == 8
-    @round == 8 ? display_win(@codemaker) : display_win(@codebreaker)
-    play_again
-  end
-
   def play_round
     @round += 1
+    round_number(@round)
     guess = @codebreaker.guess_code
     puts guess.change_to_colors
     feedback = @codemaker.verify_code(guess)

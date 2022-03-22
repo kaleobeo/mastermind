@@ -36,9 +36,9 @@ class Computer
       @possible_solutions.each do |code|
         guess_scores[verify_code(guess, code)] += 1
       end
-      guess_quality[guess] = guess_scores.max_by { |k, v| v }[1]
+      guess_quality[guess] = guess_scores.max_by { |_k, v| v }[1]
     end
-    guess_quality.min_by { |k, v| v }[0]
+    guess_quality.min_by { |_k, v| v }[0]
   end
 
   def verify_code(guess, solution = @computer_code)
