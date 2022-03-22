@@ -3,7 +3,7 @@
 # Methods to communicate with the player
 module Display
   def welcome
-    puts 'Welcome to Mastermind!'
+    puts 'Welcome to Mastermind! Try to beat the computer in 8 rounds or less!'
   end
 
   def finish
@@ -31,7 +31,7 @@ module Display
 
   def player_make_code
     puts 'Please think of a code, and make note of it. If you give poor feedback, the AI might not be able to guess.'
-    sleep 3.0
+    sleep 1.5
   end
 
   def player_verify_perfects
@@ -40,7 +40,7 @@ module Display
   end
 
   def player_verify_imperfects
-    puts 'How many pegs are in your code, but placed in the wrong position'
+    puts 'How many pegs are in your code, but placed in the wrong position?'
     gets.chomp
   end
 

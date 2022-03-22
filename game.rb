@@ -8,7 +8,6 @@ require_relative 'display'
 class Game
   include Display
   def initialize
-    welcome
     play_game
   end
 
@@ -42,7 +41,7 @@ class Game
     guess = @codebreaker.guess_code
     puts guess.change_to_colors
     feedback = @codemaker.verify_code(guess)
-    feedback == { perfect: 4, imperfect: 0 } ? @game_over = true : puts(feedback.hash_to_hints)
+    feedback == { perfect: 4, imperfect: 0 } ? @game_over = true : @codebreaker.handle_feedback(feedback)
   end
 
   def play_again

@@ -5,7 +5,10 @@ class Computer
   attr_reader :computer_code
   attr_accessor :points
 
+  @@permutations = [1, 2, 3, 4, 5, 6].repeated_permutation(4).to_a
+
   def initialize
+    @possible_solutions = @@permutations.dup
     @points = 0
   end
   # Define a function generate_code that makes a 4 digit code such as 1111, 1112, 1122, etc
@@ -13,12 +16,22 @@ class Computer
   def make_code
     @computer_code = []
     4.times { @computer_code.push(rand(1..6)) }
-    p @computer_code
     @computer_code
+  end
+
+  def handle_feedback(feedback)
+    @possible_solutions.filter! { |solution| verify_code(solution, @last_guess) == feedback }
+    puts @possible_solutions.length
+  end
+
+  def guess_code
+    @last_guess = @possible_solutions.length == 1296 ? [1, 1, 2, 2] : @possible_solutions[0]
+    @last_guess
   end
 
   def verify_code(guess, solution = @computer_code)
     code = solution.dup
+    guess = guess.dup
     computer_feedback = { perfect: 0, imperfect: 0 }
     computer_feedback[:perfect] = check_perfects(code, guess)
     computer_feedback[:imperfect] = check_imperfects(code, guess)
