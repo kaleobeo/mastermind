@@ -29,8 +29,18 @@ module Display
     gets.chomp
   end
 
-  def ask_for_guess
-    puts 'What code do you want to guess next?'
+  def player_make_code
+    puts 'Please think of a code, and make note of it. If you give poor feedback, the AI might not be able to guess.'
+    sleep 3.0
+  end
+
+  def player_verify_perfects
+    puts 'How many pegs are in the perfect position?'
+    gets.chomp
+  end
+
+  def player_verify_imperfects
+    puts 'How many pegs are in your code, but placed in the wrong position'
     gets.chomp
   end
 
