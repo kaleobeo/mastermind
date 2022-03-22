@@ -25,8 +25,20 @@ class Computer
   end
 
   def guess_code
-    @last_guess = @possible_solutions.length == 1296 ? [1, 1, 2, 2] : @possible_solutions[0]
+    @last_guess = @possible_solutions.length == 1296 ? [1, 1, 2, 2] : find_best_guess
     @last_guess
+  end
+
+  def find_best_guess
+    guess_quality = {}
+    @possible_solutions.each do |guess|
+      guess_scores = Hash.new(0)
+      @possible_solutions.each do |code|
+        guess_scores[verify_code(guess, code)] += 1
+      end
+      guess_quality[guess] = guess_scores.max_by { |k, v| v }[1]
+    end
+    guess_quality.min_by { |k, v| v }[0]
   end
 
   def verify_code(guess, solution = @computer_code)
