@@ -29,6 +29,17 @@ class Computer
     @last_guess
   end
 
+  def verify_code(guess, solution = @computer_code)
+    code = solution.dup
+    guess = guess.dup
+    computer_feedback = { perfect: 0, imperfect: 0 }
+    computer_feedback[:perfect] = check_perfects(code, guess)
+    computer_feedback[:imperfect] = check_imperfects(code, guess)
+    computer_feedback
+  end
+
+  private
+
   def find_best_guess
     guess_quality = {}
     @possible_solutions.each do |guess|
@@ -40,17 +51,6 @@ class Computer
     end
     guess_quality.min_by { |_k, v| v }[0]
   end
-
-  def verify_code(guess, solution = @computer_code)
-    code = solution.dup
-    guess = guess.dup
-    computer_feedback = { perfect: 0, imperfect: 0 }
-    computer_feedback[:perfect] = check_perfects(code, guess)
-    computer_feedback[:imperfect] = check_imperfects(code, guess)
-    computer_feedback
-  end
-
-  private
 
   def check_perfects(guess, code)
     perfects = 0

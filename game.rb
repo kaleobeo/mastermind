@@ -11,6 +11,8 @@ class Game
     play_game
   end
 
+  private
+
   def play_game
     choose_roles
     @round = 0
@@ -21,8 +23,6 @@ class Game
     reveal_code(@codemaker.computer_code) if @round == 8 && @codebreaker.instance_of?(Player)
     play_again
   end
-
-  private
 
   def choose_roles
     input = display_choose_roles
@@ -46,6 +46,9 @@ class Game
     puts guess.change_to_colors
     feedback = @codemaker.verify_code(guess)
     feedback == { perfect: 4, imperfect: 0 } ? @game_over = true : @codebreaker.handle_feedback(feedback)
+  rescue NoMethodError
+    puts 'It looks like you made a mistake when giving feedback... Please restart the program.'
+    @game_over = true
   end
 
   def play_again
